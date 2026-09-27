@@ -1,0 +1,45 @@
+import hashlib
+
+def crear_sello_magico(datos_del_bloque):
+    datos_en_bytes = str(datos_del_bloque).encode()
+    sello = hashlib.sha256(datos_en_bytes).hexdigest()
+    return sello
+
+blockchain = []
+
+datos_bloque_1 = {
+    "transaccion": "Se crea la primera moneda",
+    "sello_anterior": "0" 
+}
+
+sello_bloque_1 = crear_sello_magico(datos_bloque_1)
+blockchain.append((datos_bloque_1, sello_bloque_1))
+
+print("--- Cuaderno Mágico Creado ---")
+print("Página 1 (Bloque Génesis):")
+print(f"Datos: {blockchain[0][0]}")
+print(f"Sello Mágico: {blockchain[0][1]}\n")
+
+datos_bloque_2 = {
+    "transaccion": "Carlos le da 10 monedas a Diana",
+    "sello_anterior": sello_bloque_1
+}
+sello_bloque_2 = crear_sello_magico(datos_bloque_2)
+blockchain.append((datos_bloque_2, sello_bloque_2))
+
+print("Página 2 añadida:")
+print(f"Datos: {blockchain[1][0]}")
+print(f"Sello Mágico: {blockchain[1][1]}\n")
+
+datos_bloque_3 = {
+    "transaccion": "Diana le da 3 monedas a Eva",
+    "sello_anterior": sello_bloque_2
+}
+sello_bloque_3 = crear_sello_magico(datos_bloque_3)
+blockchain.append((datos_bloque_3, sello_bloque_3))
+
+print("Página 3 añadida:")
+print(f"Datos: {blockchain[2][0]}")
+print(f"Sello Mágico: {blockchain[2][1]}\n")
+
+print("¡Nuestro Cuaderno Mágico tiene 3 páginas encadenadas!")
